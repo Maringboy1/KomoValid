@@ -1,0 +1,19 @@
+{
+  "name": "komovalid",
+  "version": "1.0.0",
+  "description": "KomoValid (KomoSign Valid) - Digital Signature Verification & Verified Display Copy Engine",
+  "main": "server.py",
+  "scripts": {
+    "start": "python3 server.py"
+  },
+  "keywords": [
+    "komovalid",
+    "komosign",
+    "digital-signature",
+    "signature-valid",
+    "pdf-validator",
+    "cca-india"
+  ],
+  "author": "Komo",
+  "license": "ISC"
+}

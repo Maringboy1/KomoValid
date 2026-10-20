@@ -1,0 +1,1997 @@
+/* ==========================================================================
+   KomoValid / KomoSign Valid - Modern Digital Signature Engine Stylesheet
+   Production-ready, ultra-smooth, modern SVG iconography & responsive layout
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root, [data-bs-theme="light"] {
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Surfaces */
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f1f5f9;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  --bg-hover: #f1f5f9;
+  --bg-pill: #e2e8f0;
+
+  /* Borders */
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-emerald: #a7f3d0;
+  --border-focus: #10b981;
+
+  /* Brand Accents */
+  --emerald-50: #ecfdf5;
+  --emerald-100: #d1fae5;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --emerald-700: #047857;
+  --emerald-glow: rgba(16, 185, 129, 0.22);
+
+  /* Typography */
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-soft: #94a3b8;
+  --text-inverse: #ffffff;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 16px 36px -4px rgba(15, 23, 42, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --shadow-glow: 0 0 28px rgba(16, 185, 129, 0.25);
+}
+
+[data-bs-theme="dark"] {
+  --bg-page: #080d1a;
+  --bg-card: #0f172a;
+  --bg-card-subtle: #172236;
+  --bg-glass: rgba(15, 23, 42, 0.88);
+  --bg-hover: #1e293b;
+  --bg-pill: #1e293b;
+
+  --border-subtle: #1e293b;
+  --border-strong: #334155;
+  --border-emerald: #065f46;
+  --border-focus: #34d399;
+
+  --emerald-50: #062817;
+  --emerald-100: #064e3b;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --emerald-700: #34d399;
+  --emerald-glow: rgba(16, 185, 129, 0.35);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-soft: #64748b;
+  --text-inverse: #0f172a;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 32px rgba(16, 185, 129, 0.35);
+}
+
+/* ==========================================================================
+   Base & Resets + Ultra-Modern Custom Scrollbars
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Modern Minimalist Scrollbars (Universal & Horizontal) */
+html, body, * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.38) transparent;
+}
+
+[data-bs-theme="dark"] html,
+[data-bs-theme="dark"] body,
+[data-bs-theme="dark"] * {
+  scrollbar-color: rgba(148, 163, 184, 0.28) transparent;
+}
+
+/* Chrome, Edge, Safari WebKit Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px; /* Modern sleek 7px horizontal scrollbar line */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+  margin: 3px 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.38);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.7);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #10b981;
+}
+
+[data-bs-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+[data-bs-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.85);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+
+/* Ambient glow orb behind hero */
+body::before {
+  content: "";
+  position: fixed;
+  top: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 680px;
+  height: 420px;
+  background: radial-gradient(circle, var(--emerald-glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 21st.dev Ambient Dot Matrix Background Grid */
+.kv-grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(100, 116, 139, 0.16) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 65%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-bs-theme="dark"] .kv-grid-bg {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+}
+
+/* 21st.dev Spotlight Hover Border Glow */
+.kv-spotlight {
+  position: relative;
+}
+
+.kv-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: radial-gradient(
+    260px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+    rgba(16, 185, 129, 0.45),
+    transparent 50%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.kv-spotlight:hover::before {
+  opacity: 1;
+}
+
+.kv-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  position: relative;
+  z-index: 1;
+  transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+}
+
+/* ==========================================================================
+   Header Navigation
+   ========================================================================== */
+.kv-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.25s ease;
+}
+
+.kv-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  gap: 0.75rem;
+}
+
+.kv-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.kv-logo-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.kv-brand:hover .kv-logo-badge {
+  transform: scale(1.06);
+}
+
+.kv-brand-text {
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  line-height: 1.2;
+}
+
+.kv-brand-accent {
+  background: linear-gradient(135deg, #10b981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.kv-tagline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-left: 0.35rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+  background-color: var(--bg-pill);
+}
+
+.kv-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.kv-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--emerald-600);
+  background-color: var(--emerald-50);
+  border: 1px solid var(--border-emerald);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+[data-bs-theme="dark"] .kv-status-pill {
+  color: #34d399;
+}
+
+.kv-status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 10px #10b981;
+}
+
+.kv-status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background-color: #10b981;
+  animation: kvRadarPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes kvRadarPing {
+  0% { transform: scale(1); opacity: 0.8; }
+  75%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Modern Theme Toggle Button */
+.kv-theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.42rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.kv-theme-toggle:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.kv-theme-icon-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--emerald-600);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-bs-theme="dark"] .kv-theme-icon-slot {
+  color: #fbbf24;
+}
+
+.kv-theme-toggle:hover .kv-theme-icon-slot {
+  transform: rotate(18deg) scale(1.1);
+}
+
+/* ==========================================================================
+   Hero Section & Auto-Minimization
+   ========================================================================== */
+.kv-hero {
+  padding: 2.25rem 0 1.25rem;
+  text-align: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Auto-minimized state when document is loaded */
+.kv-hero-minimized {
+  padding: 0.5rem 0 0.5rem;
+  opacity: 0.95;
+}
+
+.kv-hero-minimized .kv-hero-subtitle,
+.kv-hero-minimized .kv-ba-row {
+  display: none !important;
+}
+
+.kv-hero-minimized .kv-hero-title {
+  font-size: 1.15rem;
+  margin-bottom: 0;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kv-hero-minimized .kv-eyebrow {
+  display: none !important;
+}
+
+.kv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--emerald-600);
+  background: var(--emerald-50);
+  border: 1px solid var(--border-emerald);
+  padding: 0.24rem 0.8rem;
+  border-radius: 9999px;
+  margin-bottom: 0.9rem;
+}
+
+[data-bs-theme="dark"] .kv-eyebrow {
+  color: #34d399;
+}
+
+.kv-hero-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  margin-bottom: 0.65rem;
+  transition: all 0.25s ease;
+}
+
+.kv-hero-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto 1.35rem;
+  line-height: 1.6;
+  transition: all 0.25s ease;
+}
+
+/* Visual Before / After Chip */
+.kv-ba-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 0.35rem 0.75rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+}
+
+.kv-ba-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.22rem 0.55rem;
+  border-radius: 9999px;
+}
+
+.kv-ba-before {
+  background-color: rgba(234, 179, 8, 0.12);
+  color: #a16207;
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+[data-bs-theme="dark"] .kv-ba-before {
+  color: #fde047;
+}
+
+.kv-ba-after {
+  background-color: var(--emerald-50);
+  color: var(--emerald-700);
+  border: 1px solid var(--border-emerald);
+}
+
+.kv-arrow {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Tool Card Container
+   ========================================================================== */
+.kv-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-card-header {
+  padding: 0.9rem 1.4rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-glass);
+}
+
+.kv-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.kv-pill-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background-color: var(--bg-pill);
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.kv-card-body {
+  padding: 1.65rem;
+  transition: padding 0.3s ease;
+}
+
+/* ==========================================================================
+   Dropzone
+   ========================================================================== */
+.kv-dropzone {
+  position: relative;
+  border: 2px dashed var(--border-strong);
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--bg-card-subtle);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.kv-dropzone:hover, .kv-dropzone.kv-dragover {
+  border-color: #10b981;
+  background-color: var(--emerald-50);
+  box-shadow: 0 0 28px var(--emerald-glow);
+  transform: translateY(-2px);
+}
+
+.kv-dropzone-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.kv-upload-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  margin: 0 auto 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.25s ease;
+}
+
+.kv-dropzone:hover .kv-upload-icon-wrap {
+  transform: scale(1.08) translateY(-2px);
+}
+
+.kv-dropzone-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.35rem;
+}
+
+.kv-dropzone-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 1.15rem;
+}
+
+.kv-supported-docs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.kv-doc-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+
+
+/* ==========================================================================
+   Loading View
+   ========================================================================== */
+.kv-loading-box {
+  padding: 2.75rem 1.25rem;
+  text-align: center;
+}
+
+.kv-spinner-ring {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1.25rem;
+  border: 3.5px solid var(--border-subtle);
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: kvSpin 0.85s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
+}
+
+.kv-loading-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.kv-loading-subtitle {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Results & Ergonomic Split Workstation
+   ========================================================================== */
+.kv-result-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* On Laptops & Desktop (>= 960px): Auto-Minimized Split-Screen Workstation */
+@media (min-width: 960px) {
+  .kv-result-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .kv-controls-panel {
+    position: sticky;
+    top: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .kv-preview-panel {
+    min-width: 0;
+  }
+}
+
+.kv-result-banner {
+  padding: 1.15rem 1.35rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  transition: all 0.25s ease;
+}
+
+.kv-result-valid {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.08) 100%);
+  border: 1px solid #10b981;
+  box-shadow: 0 4px 16px var(--emerald-glow);
+}
+
+.kv-banner-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.kv-banner-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #047857;
+}
+
+[data-bs-theme="dark"] .kv-banner-title {
+  color: #34d399;
+}
+
+.kv-banner-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.kv-icon-circle-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Document Recognition Card */
+.kv-doc-card {
+  background-color: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 0.95rem 1.15rem;
+}
+
+.kv-doc-card-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.kv-doc-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.kv-doc-main-badge {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.kv-doc-sub-badge {
+  font-size: 0.74rem;
+  font-weight: 600;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 0.16rem 0.5rem;
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Live Verified Document Previewer (Laptop & Mobile Optimized)
+   ========================================================================== */
+.kv-preview-box {
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.kv-preview-toolbar {
+  padding: 0.65rem 1rem;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.kv-preview-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.kv-zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.kv-zoom-btn {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.3rem 0.65rem;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kv-zoom-btn:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+/* Auto-minimized viewport height for laptop screens + Modern horizontal scrollbar */
+.kv-preview-viewport {
+  padding: 1.5rem;
+  height: calc(100vh - 160px);
+  min-height: 480px;
+  max-height: 740px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: #cbd5e1;
+  transition: background-color 0.2s ease;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-bs-theme="dark"] .kv-preview-viewport {
+  background-color: #030712;
+}
+
+/* Dedicated preview viewport horizontal & vertical sleek scrollbars */
+.kv-preview-viewport::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* High-tech slim 8px horizontal scrollbar */
+}
+
+.kv-preview-viewport::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.06);
+  border-radius: 9999px;
+  margin: 6px 14px;
+}
+
+[data-bs-theme="dark"] .kv-preview-viewport::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.kv-preview-viewport::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.7), rgba(16, 185, 129, 0.8));
+  border-radius: 9999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.kv-preview-viewport::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.95), rgba(16, 185, 129, 1));
+}
+
+.kv-preview-page {
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border-radius: 4px;
+  width: 720px;
+  max-width: 100%;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.kv-preview-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-page-number {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0.35rem;
+}
+
+/* ==========================================================================
+   Modern Action Buttons
+   ========================================================================== */
+.kv-actions-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.kv-btn-primary {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.kv-btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.kv-btn-primary:hover::after {
+  transform: translateX(100%);
+}
+
+.kv-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.kv-btn-primary:active {
+  transform: translateY(0);
+}
+
+.kv-btn-secondary {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-btn-secondary:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--text-muted);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   Technical Details Accordion
+   ========================================================================== */
+.kv-details {
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  overflow: hidden;
+}
+
+.kv-details summary {
+  padding: 0.8rem 1.15rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color 0.15s ease;
+}
+
+.kv-details summary:hover {
+  color: var(--text-main);
+}
+
+.kv-tech-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.kv-tech-table tr {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.kv-tech-table td {
+  padding: 0.6rem 1.15rem;
+}
+
+.kv-tech-table td:first-child {
+  color: var(--text-muted);
+  font-weight: 600;
+  width: 38%;
+}
+
+.kv-tech-table td:last-child {
+  font-family: var(--font-mono);
+  color: var(--text-main);
+  word-break: break-all;
+}
+
+/* ==========================================================================
+   High-Tech Animated Verification Pipeline
+   Sequential live steps with spinning laser ring, checkmark transition,
+   and smooth countdown timer
+   ========================================================================== */
+.kv-pipeline-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  margin: 0 auto;
+  max-width: 660px;
+  animation: kvEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.kv-pipeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.kv-pipeline-fileinfo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kv-pipeline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--emerald-600);
+  background-color: var(--emerald-50);
+  border: 1px solid var(--border-emerald);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+[data-bs-theme="dark"] .kv-pipeline-badge {
+  color: #34d399;
+}
+
+.kv-pipeline-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.kv-pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 0.85rem 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* One-by-one progressive slide-down entrance */
+@keyframes kvStepSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.kv-pipeline-step.step-entering {
+  animation: kvStepSlideIn 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.kv-pipeline-step.step-active {
+  background-color: var(--bg-card-subtle);
+  border-color: rgba(16, 185, 129, 0.45);
+  border-left: 3.5px solid #10b981;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+  transform: translateX(4px);
+}
+
+.kv-pipeline-step.step-done {
+  border-color: var(--border-subtle);
+  border-left: 3.5px solid #10b981;
+  background-color: var(--bg-card);
+  opacity: 0.94;
+  transform: translateX(0);
+}
+
+/* Smooth celebratory fadeout of the entire pipeline card */
+.kv-pipeline-fadeout {
+  opacity: 0 !important;
+  transform: translateY(-16px) scale(0.97) !important;
+  transition: opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.42s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  pointer-events: none;
+}
+
+.kv-step-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-strong);
+  color: var(--text-muted);
+  transition: all 0.25s ease;
+  margin-top: 1px;
+}
+
+/* Active state: rotating glowing ring */
+.kv-pipeline-step.step-active .kv-step-indicator {
+  border-color: #10b981;
+  color: #10b981;
+  background-color: var(--emerald-50);
+  box-shadow: 0 0 14px var(--emerald-glow);
+  animation: kvPulse 1.5s infinite;
+}
+
+/* Done state: emerald badge with check */
+.kv-pipeline-step.step-done .kv-step-indicator {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: #10b981;
+  color: #ffffff;
+  box-shadow: 0 2px 10px var(--emerald-glow);
+  animation: kvPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes kvPopIn {
+  0% { transform: scale(0.6); }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.kv-step-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.kv-step-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kv-step-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.kv-step-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  background-color: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 0.1rem 0.42rem;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.kv-step-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.kv-pipeline-step.step-active .kv-step-title {
+  color: #047857;
+}
+
+[data-bs-theme="dark"] .kv-pipeline-step.step-active .kv-step-title {
+  color: #34d399;
+}
+
+.kv-step-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.kv-step-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.16rem 0.52rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.kv-tag-active {
+  color: #059669;
+  background-color: var(--emerald-50);
+  border: 1px solid var(--border-emerald);
+}
+
+[data-bs-theme="dark"] .kv-tag-active {
+  color: #34d399;
+}
+
+.kv-tag-done {
+  color: var(--emerald-600);
+  background-color: transparent;
+  border: 1px solid var(--border-subtle);
+}
+
+[data-bs-theme="dark"] .kv-tag-done {
+  color: #34d399;
+}
+
+/* Step 5 countdown & progress bar */
+.kv-countdown-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border-subtle);
+  border-radius: 9999px;
+  margin-top: 0.45rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.kv-countdown-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.kv-countdown-ticker {
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--emerald-600);
+}
+
+.kv-spin-svg {
+  animation: kvSpin 0.75s linear infinite;
+  color: #10b981;
+}
+
+.kv-dot-waiting {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--text-soft);
+  opacity: 0.45;
+}
+
+/* ==========================================================================
+   Clean Result Screen (Focused on Preview, Download & Verify Another)
+   Luxurious, silky smooth progressive blur-dissolve entrance
+   ========================================================================== */
+.kv-clean-screen {
+  animation: kvLuxuriousEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@keyframes kvLuxuriousEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Staggered smooth reveal of clean screen components */
+.kv-clean-screen .kv-clean-header-card {
+  animation: kvStaggerFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+}
+
+.kv-clean-screen .kv-preview-box {
+  animation: kvStaggerFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+.kv-clean-screen .kv-preview-page {
+  animation: kvPageSoftReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+@keyframes kvStaggerFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kvPageSoftReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.kv-clean-header-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.15rem 1.45rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.kv-clean-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  flex: 1 1 300px;
+}
+
+.kv-clean-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.08) 100%);
+  border: 1.5px solid #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--emerald-glow);
+}
+
+.kv-clean-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.kv-clean-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.kv-clean-heading {
+  font-size: 1.18rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.kv-clean-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--emerald-600);
+  background: var(--emerald-50);
+  border: 1px solid var(--border-emerald);
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+}
+
+[data-bs-theme="dark"] .kv-clean-pill {
+  color: #34d399;
+}
+
+.kv-clean-subtitle {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kv-clean-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+}
+
+.kv-clean-actions-bar .kv-btn-primary {
+  width: auto;
+  padding: 0.72rem 1.35rem;
+  font-size: 0.92rem;
+}
+
+.kv-clean-actions-bar .kv-btn-secondary {
+  width: auto;
+  padding: 0.72rem 1.15rem;
+  font-size: 0.9rem;
+}
+
+.kv-clean-actions-bar .kv-btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 0.72rem 1.15rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.kv-clean-actions-bar .kv-btn-action:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: var(--emerald-500);
+}
+
+.kv-clean-actions-bar .kv-btn-action:active {
+  transform: translateY(0);
+}
+
+.kv-page-number {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Modern Share Modal Dialog
+   ========================================================================== */
+.kv-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-modal-backdrop.kv-modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kv-modal-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 460px;
+  padding: 1.6rem 1.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-modal-backdrop.kv-modal-open .kv-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.kv-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.15rem;
+}
+
+.kv-modal-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.kv-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.kv-modal-close:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.kv-share-doc-preview {
+  background-color: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.kv-share-doc-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.kv-share-doc-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kv-share-doc-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.kv-share-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.kv-share-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.95rem 0.75rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-share-item:hover {
+  border-color: #10b981;
+  background-color: var(--bg-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  color: #10b981;
+}
+
+.kv-share-item.kv-share-whatsapp:hover {
+  border-color: #25D366;
+  color: #25D366;
+}
+
+.kv-share-copy-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  background-color: var(--bg-card-subtle);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.kv-share-copy-btn:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+/* ==========================================================================
+   Batch / Multi-File Processing Station
+   ========================================================================== */
+.kv-batch-station {
+  animation: kvLuxuriousEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.kv-batch-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 1.45rem 1.65rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.kv-batch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  padding-bottom: 0.95rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.kv-batch-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.kv-batch-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.14) 0%, rgba(16, 185, 129, 0.1) 100%);
+  border: 1.5px solid rgba(16, 185, 129, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+}
+
+.kv-batch-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.kv-batch-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0.2rem 0 0 0;
+}
+
+.kv-batch-progress-bar-wrap {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-card-subtle);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 1.15rem;
+}
+
+.kv-batch-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6366f1, #10b981);
+  border-radius: 9999px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kv-batch-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.kv-batch-file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background-color: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.kv-batch-file-row:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.kv-batch-file-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.kv-batch-file-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kv-batch-file-size {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.kv-batch-file-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.kv-batch-status-queued {
+  background-color: rgba(148, 163, 184, 0.15);
+  color: var(--text-muted);
+}
+
+.kv-batch-status-processing {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+}
+
+.kv-batch-status-verified {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.kv-batch-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Smartphone Specific Responsive Overrides (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .kv-container {
+    padding: 0 0.85rem;
+  }
+
+  .kv-brand-text {
+    font-size: 1.05rem;
+  }
+
+  .kv-tagline {
+    display: none;
+  }
+
+  .kv-status-pill {
+    display: none;
+  }
+
+  .kv-hero-title {
+    font-size: 1.65rem;
+  }
+
+  .kv-hero-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .kv-card-body {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .kv-dropzone {
+    padding: 1.85rem 0.85rem;
+  }
+
+  .kv-upload-icon-wrap {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.75rem;
+  }
+
+  .kv-dropzone-title {
+    font-size: 1rem;
+  }
+
+  .kv-dropzone-desc {
+    font-size: 0.82rem;
+  }
+
+  .kv-preview-viewport {
+    height: 55vh;
+    min-height: 340px;
+    padding: 0.85rem 0.5rem;
+  }
+
+  .kv-preview-toolbar {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   UI/UX Pro Max Motion & Zero-Lag Performance Optimizations
+   Composite-only animations (transform & opacity), hardware acceleration,
+   staggered entrances, content-visibility for fast scrolling
+   ========================================================================== */
+
+/* Hardware acceleration for GPU compositing without layout thrashing */
+.kv-card,
+.kv-dropzone,
+.kv-btn-primary,
+.kv-btn-secondary,
+.kv-theme-toggle,
+.kv-preview-page,
+.kv-logo-badge {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Staggered entry animation for high polish */
+@keyframes kvEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+.kv-hero {
+  animation: kvEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.kv-card {
+  animation: kvEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+}
+
+/* Offscreen render deferral for PDF preview pages */
+.kv-preview-page {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+  contain: style paint;
+  will-change: width;
+}
+
+/* Core keyframes */
+@keyframes kvPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+@keyframes kvSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Accessible Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

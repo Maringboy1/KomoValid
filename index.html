@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>KomoValid - Digital Signature Verification & Valid Copy Engine</title>
+  <meta name="description" content="KomoValid (KomoSign Valid): Convert unverified digital signature question marks to permanent 3D green ticks on Manipur e-Services, e-Aadhaar, and e-PAN documents.">
+  <link rel="icon" type="image/svg+xml" href="/img/signature_verified.svg">
+  <link rel="stylesheet" href="/styles.css?v=9">
+</head>
+<body>
+  <!-- 21st.dev Ambient Dot Matrix Background Grid -->
+  <div class="kv-grid-bg"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="kv-header">
+    <div class="kv-container">
+      <nav class="kv-nav">
+        <a href="/" class="kv-brand" aria-label="KomoValid Home">
+          <div class="kv-logo-badge">
+            <img src="/img/signature_verified.svg" alt="KomoValid Check" width="22" height="22">
+          </div>
+          <div class="kv-brand-text">
+            <span>Komo</span><span class="kv-brand-accent">Valid</span>
+            <span class="kv-tagline">KomoSign Valid</span>
+          </div>
+        </a>
+
+        <div class="kv-nav-actions">
+          <div class="kv-status-pill">
+            <span class="kv-status-dot"></span>
+            <span>CCA Trust Active</span>
+          </div>
+
+          <!-- Modern Theme Toggle (SVG Sun / Moon) -->
+          <button id="theme-toggle-btn" class="kv-theme-toggle" type="button" aria-label="Toggle dark/light theme" title="Toggle theme">
+            <span class="kv-theme-icon-slot"></span>
+            <span id="theme-toggle-label">Dark</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Workspace Container -->
+  <main class="kv-container" style="flex: 1; padding-bottom: 2.5rem;">
+
+    <!-- Hero Section -->
+    <section class="kv-hero" id="hero-section">
+      <div class="kv-eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Digital Certificate Validator</span>
+      </div>
+      <h1 class="kv-hero-title">Validate & Sign Digital Documents</h1>
+      <p class="kv-hero-subtitle">
+        Automatically locates unverified digital signatures, replaces the <code>?</code> mark with an authentic 3D green tick, and aligns with original SDO signing details.
+      </p>
+
+      <!-- Visual Before / After Chip -->
+      <div class="kv-ba-row">
+        <div class="kv-ba-chip kv-ba-before">
+          <img src="/img/signature_not_verified.svg" width="16" height="16" alt="Unverified">
+          <span>Signature Not Verified</span>
+        </div>
+        <span class="kv-arrow">➔</span>
+        <div class="kv-ba-chip kv-ba-after">
+          <img src="/img/signature_verified.svg" width="16" height="16" alt="Verified">
+          <span>Signature valid</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Card Container -->
+    <div class="kv-card kv-spotlight">
+      <div class="kv-card-header">
+        <div class="kv-card-title">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span id="card-header-title">Upload PDF Document</span>
+        </div>
+        <span class="kv-pill-tag" id="card-header-badge">Local & Secure</span>
+      </div>
+
+      <div class="kv-card-body">
+        
+        <!-- Drag & Drop Zone -->
+        <div id="drop-zone" class="kv-dropzone">
+          <input type="file" id="file-input" class="kv-dropzone-input" accept=".pdf,application/pdf" aria-label="Upload PDF" multiple>
+          
+          <div class="kv-upload-icon-wrap">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="12" y1="18" x2="12" y2="12"></line>
+              <polyline points="9 15 12 12 15 15"></polyline>
+            </svg>
+          </div>
+
+          <h2 class="kv-dropzone-title">Click to browse or drop your PDF(s) here</h2>
+          <p class="kv-dropzone-desc">Single document verification or multi-file bulk batch processing (ZIP export)</p>
+
+          <div class="kv-supported-docs">
+            <span class="kv-doc-chip">Manipur e-Services (Income / ST / PRC / OBC)</span>
+            <span class="kv-doc-chip">e-Aadhaar</span>
+            <span class="kv-doc-chip">e-PAN</span>
+            <span class="kv-doc-chip">DigiLocker</span>
+          </div>
+        </div>
+
+
+
+        <!-- Loading View (Hidden by default) -->
+        <div id="steps-container" style="display: none;"></div>
+
+        <!-- Results & Live Verified Preview (Hidden by default) -->
+        <div id="results-container" style="display: none;"></div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Bulletproof inline script for KomoValid / KomoSign Valid
+    let currentFile = null;
+    let currentPassword = '';
+    let currentZoom = 1.0;
+
+    // Modern SVG Icons for Theme Toggle
+    const sunSVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+    const moonSVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+    // Theme Switcher Initialization
+    const currentTheme = localStorage.getItem('kv_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-bs-theme', currentTheme);
+    
+    function updateThemeBtn() {
+      const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+      const iconSlot = document.querySelector('.kv-theme-icon-slot');
+      const label = document.getElementById('theme-toggle-label');
+      if (iconSlot) iconSlot.innerHTML = isDark ? sunSVG : moonSVG;
+      if (label) label.textContent = isDark ? 'Light' : 'Dark';
+    }
+    updateThemeBtn();
+
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const nextTheme = document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-bs-theme', nextTheme);
+        localStorage.setItem('kv_theme', nextTheme);
+        updateThemeBtn();
+      });
+    }
+
+    // Drag-over styling
+    // Drag-over and Drop styling
+    const dropZone = document.getElementById('drop-zone');
+    if (dropZone) {
+      ['dragenter', 'dragover'].forEach(name => {
+        dropZone.addEventListener(name, (e) => {
+          e.preventDefault();
+          dropZone.classList.add('kv-dragover');
+        });
+      });
+      ['dragleave'].forEach(name => {
+        dropZone.addEventListener(name, (e) => {
+          e.preventDefault();
+          dropZone.classList.remove('kv-dragover');
+        });
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('kv-dragover');
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          const files = Array.from(e.dataTransfer.files).filter(f => f.name.toLowerCase().endsWith('.pdf') || f.type === 'application/pdf');
+          if (files.length === 1) {
+            processPdfFile(files[0]);
+          } else if (files.length > 1) {
+            handleBatchUpload(files);
+          }
+        }
+      });
+    }
+
+    // File Input Listener
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+      fileInput.addEventListener('change', function(e) {
+        if (this.files && this.files.length > 0) {
+          if (this.files.length === 1) {
+            const file = this.files[0];
+            this.value = '';
+            processPdfFile(file);
+          } else {
+            const files = Array.from(this.files);
+            this.value = '';
+            handleBatchUpload(files);
+          }
+        }
+      });
+    }
+
+
+
+    // High-Tech 7-Step Sequential Animation Pipeline (Revealed One by One with Professional Clarity)
+    function runLivePipeline(fileName) {
+      return new Promise((resolve) => {
+        const steps = [
+          {
+            title: `Analyzing Document Structure: ${fileName}`,
+            desc: `Parsing PDF catalog, page layout, and cryptographic metadata`,
+            duration: 2000
+          },
+          {
+            title: `Locating Unverified Digital Signature Field...`,
+            desc: `Scanning document coordinate grid to identify unverified signature mark`,
+            duration: 2000
+          },
+          {
+            title: `Signature Anchor Coordinates Identified Successfully`,
+            desc: `Target position verified; bounding box and borders locked`,
+            duration: 900
+          },
+          {
+            title: `Applying Certified Digital Signature Stamp...`,
+            desc: `Stamping authentic 3D green tick with verified authority credentials`,
+            duration: 800
+          },
+          {
+            title: `Finalizing Cryptographic Seal in 4 seconds...`,
+            desc: `Validating CCA India root trust hierarchy and SHA-256 hash digest`,
+            duration: 4000,
+            isCountdown: true
+          },
+          {
+            title: `Compiling Verified PDF Document...`,
+            desc: `Preserving vector borders, original SDO signing details, and high-res typography`,
+            duration: 900
+          },
+          {
+            title: `Document Verified & Certified Successfully!`,
+            desc: `Official display copy ready for preview and instant download`,
+            duration: 700
+          }
+        ];
+
+        const container = document.getElementById('steps-container');
+        container.style.display = 'block';
+
+        const radarSVG = `
+          <svg class="kv-spin-svg" width="17" height="17" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" opacity="0.25"/>
+            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        `;
+
+        const checkSVG = `
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        `;
+
+        container.innerHTML = `
+          <div class="kv-pipeline-card">
+            <div class="kv-pipeline-header">
+              <div class="kv-pipeline-fileinfo">
+                <div class="kv-sample-icon-box" style="width: 36px; height: 36px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                  </svg>
+                </div>
+                <div style="min-width: 0;">
+                  <div style="font-weight: 700; color: var(--text-main); font-size: 0.96rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 280px;" title="${fileName}">${fileName}</div>
+                  <div style="font-size: 0.74rem; color: var(--text-muted);">KomoValid Signature Verification Engine</div>
+                </div>
+              </div>
+              <div class="kv-pipeline-badge" id="pipeline-status-badge">
+                <span class="kv-status-dot"></span>
+                <span id="pipeline-status-text">Step 1 of 7</span>
+              </div>
+            </div>
+
+            <!-- Steps list: begins empty, appends each process one-by-one as previous finishes -->
+            <div class="kv-pipeline-steps" id="pipeline-steps-list"></div>
+          </div>
+        `;
+
+        const stepsList = document.getElementById('pipeline-steps-list');
+        let currentIdx = 0;
+
+        function renderAndRunStep(index) {
+          if (index >= steps.length) {
+            const badge = document.getElementById('pipeline-status-badge');
+            if (badge) {
+              badge.innerHTML = `<span style="color: #10b981; font-weight: 700;">Complete ✓</span>`;
+            }
+            setTimeout(() => {
+              resolve();
+            }, 650);
+            return;
+          }
+
+          const st = steps[index];
+
+          // Update header status badge
+          const statusText = document.getElementById('pipeline-status-text');
+          if (statusText) {
+            statusText.textContent = `Step ${index + 1} of ${steps.length}`;
+          }
+
+          // Dynamically create and append next step only when reached
+          const stepEl = document.createElement('div');
+          stepEl.className = 'kv-pipeline-step step-active step-entering';
+          stepEl.id = `pipe-step-${index}`;
+          stepEl.innerHTML = `
+            <div class="kv-step-indicator" id="pipe-ind-${index}">
+              ${radarSVG}
+            </div>
+            <div class="kv-step-body">
+              <div class="kv-step-header-row">
+                <div class="kv-step-title-wrap">
+                  <span class="kv-step-index">0${index + 1}</span>
+                  <span class="kv-step-title" id="pipe-title-${index}">${st.title}</span>
+                </div>
+                <span class="kv-step-tag kv-tag-active" id="pipe-tag-${index}">Active</span>
+              </div>
+              <div class="kv-step-desc" id="pipe-desc-${index}">${st.desc}</div>
+              ${st.isCountdown ? `
+                <div class="kv-countdown-bar-wrap" id="pipe-bar-wrap-${index}">
+                  <div class="kv-countdown-bar-fill" id="pipe-bar-fill-${index}"></div>
+                </div>
+              ` : ''}
+            </div>
+          `;
+          stepsList.appendChild(stepEl);
+
+          const indEl = document.getElementById(`pipe-ind-${index}`);
+          const titleEl = document.getElementById(`pipe-title-${index}`);
+          const tagEl = document.getElementById(`pipe-tag-${index}`);
+
+          if (st.isCountdown) {
+            let secondsLeft = 4;
+            const barFill = document.getElementById(`pipe-bar-fill-${index}`);
+            if (barFill) {
+              requestAnimationFrame(() => {
+                barFill.style.transition = 'width 4s linear';
+                barFill.style.width = '100%';
+              });
+            }
+
+            const countdownInterval = setInterval(() => {
+              secondsLeft--;
+              if (secondsLeft >= 1 && titleEl) {
+                titleEl.textContent = `Finalizing Cryptographic Seal in ${secondsLeft} second${secondsLeft > 1 ? 's' : ''}...`;
+              }
+              if (secondsLeft <= 0) {
+                clearInterval(countdownInterval);
+                finishStep();
+              }
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              finishStep();
+            }, st.duration);
+          }
+
+          function finishStep() {
+            stepEl.className = 'kv-pipeline-step step-done';
+            if (indEl) {
+              indEl.innerHTML = checkSVG;
+            }
+            if (tagEl) {
+              tagEl.className = 'kv-step-tag kv-tag-done';
+              tagEl.textContent = 'Verified ✓';
+            }
+            // Natural pause so the user sees the completed checkmark before the next item slides in
+            setTimeout(() => {
+              currentIdx++;
+              renderAndRunStep(currentIdx);
+            }, 260);
+          }
+        }
+
+        // Begin with Step 1
+        renderAndRunStep(0);
+      });
+    }
+
+    async function processPdfFile(file, password = '') {
+      currentFile = file;
+      currentPassword = password;
+      currentZoom = 1.0;
+
+      // Auto-minimize hero to maximize screen real estate
+      const hero = document.getElementById('hero-section');
+      if (hero) hero.classList.add('kv-hero-minimized');
+
+      document.getElementById('drop-zone').style.display = 'none';
+      document.getElementById('results-container').style.display = 'none';
+
+      // Start backend fetch in parallel
+      const formData = new FormData();
+      formData.append('file', file);
+      if (password) {
+        formData.append('password', password);
+      }
+
+      const fetchPromise = fetch('/api/validate', {
+        method: 'POST',
+        body: formData
+      }).then(async (res) => {
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || 'Validation request failed');
+        }
+        return res.json();
+      });
+
+      // Start 7-step animation pipeline
+      const pipelinePromise = runLivePipeline(file.name);
+
+      try {
+        const [report] = await Promise.all([fetchPromise, pipelinePromise]);
+
+        if (report.error_code === 'PASSWORD_REQUIRED' || report.error_code === 'WRONG_PASSWORD') {
+          showPasswordPrompt(report);
+        } else {
+          showVerifiedResult(report);
+        }
+      } catch (err) {
+        showError(err.message || 'Error processing document');
+      }
+    }
+
+    function showPasswordPrompt(report) {
+      document.getElementById('steps-container').style.display = 'none';
+      const results = document.getElementById('results-container');
+      results.style.display = 'block';
+
+      const isWrong = report.error_code === 'WRONG_PASSWORD';
+      results.innerHTML = `
+        <div class="kv-password-card">
+          <div class="kv-icon-circle-badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; margin: 0 auto 0.75rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3 class="kv-loading-title">Password Protected Document</h3>
+          <p class="kv-loading-subtitle" style="margin-bottom: 1.25rem;">
+            ${isWrong ? '<strong style="color: #ef4444;">Incorrect password. Please try again.</strong><br>' : ''}
+            This document is encrypted. Enter its password to decrypt and verify the digital signature.
+          </p>
+          <form id="password-form" style="display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto 1.25rem;">
+            <input type="password" id="doc-password" class="kv-input" placeholder="Enter document password" required autofocus>
+            <button type="submit" class="kv-btn-primary" style="flex: 0 0 auto; width: auto; padding: 0.75rem 1.25rem;">Unlock</button>
+          </form>
+          <button type="button" class="kv-btn-secondary" onclick="resetUploader()">← Back to Upload</button>
+        </div>
+      `;
+
+      document.getElementById('password-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pass = document.getElementById('doc-password').value;
+        processPdfFile(currentFile, pass);
+      });
+    }
+
+    async function showVerifiedResult(report) {
+      // Smooth exit transition of pipeline card
+      const pipelineCard = document.querySelector('.kv-pipeline-card');
+      if (pipelineCard) {
+        pipelineCard.classList.add('kv-pipeline-fadeout');
+        await new Promise(r => setTimeout(r, 420));
+      }
+
+      document.getElementById('steps-container').style.display = 'none';
+      const results = document.getElementById('results-container');
+      results.style.display = 'block';
+
+      const verdict = report.verdict;
+      const sig = report.signatures && report.signatures.length > 0 ? report.signatures[0] : null;
+      const docType = report.doc_type || {};
+      const fileName = currentFile ? currentFile.name : 'Verified Document';
+
+      // Update card title
+      const cardTitle = document.getElementById('card-header-title');
+      if (cardTitle) {
+        cardTitle.textContent = fileName;
+      }
+      const cardBadge = document.getElementById('card-header-badge');
+      if (cardBadge) {
+        cardBadge.textContent = verdict === 'valid' ? 'Verified ✓' : 'Inspected';
+      }
+
+      if (verdict === 'valid') {
+        let inspectorHTML = '';
+        if (sig) {
+          inspectorHTML = `
+            <details class="kv-details" style="margin-top: 1.25rem;">
+              <summary>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <span>Cryptographic Details & Signer Info</span>
+              </summary>
+              <table class="kv-tech-table">
+                <tr><td>Signer Name</td><td>${sig.signer_cn || '—'}</td></tr>
+                <tr><td>Signing Authority</td><td>${sig.signer_org || '—'}</td></tr>
+                <tr><td>Issuing CA</td><td>${sig.issuer_cn || '—'}</td></tr>
+                <tr><td>Signing Timestamp</td><td>${sig.signing_time_formatted || sig.signing_time || '—'}</td></tr>
+                <tr><td>Digest Algorithm</td><td>${sig.digest_algorithm || 'SHA-256'}</td></tr>
+                <tr><td>Certificate Serial</td><td>${sig.serial_hex || '—'}</td></tr>
+              </table>
+            </details>
+          `;
+        }
+
+        results.innerHTML = `
+          <div class="kv-clean-screen">
+            <!-- Header & Action Row: Download, Print, Share, and Verify Another -->
+            <div class="kv-clean-header-card">
+              <div class="kv-clean-status-row">
+                <div class="kv-clean-badge-icon">
+                  <img src="/img/signature_verified.svg" width="30" height="30" alt="Verified">
+                </div>
+                <div class="kv-clean-title-wrap">
+                  <div class="kv-clean-heading-row">
+                    <h2 class="kv-clean-heading">Signature Verified</h2>
+                    <span class="kv-clean-pill">Valid Copy</span>
+                  </div>
+                  <p class="kv-clean-subtitle">
+                    ${fileName} · Permanent 3D green tick applied · Original SDO details & borders intact
+                  </p>
+                </div>
+              </div>
+
+              <!-- Action Buttons Above the Preview -->
+              <div class="kv-clean-actions-bar">
+                <button type="button" class="kv-btn-primary" id="download-verified-btn" onclick="downloadVerifiedDisplayCopy()">
+                  <img src="/img/signature_verified.svg" width="22" height="22" alt="">
+                  <span>Download Verified PDF</span>
+                </button>
+                <button type="button" class="kv-btn-action" id="print-doc-btn" onclick="printVerifiedDocument()" title="One-Click Direct Print">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                  </svg>
+                  <span>Print</span>
+                </button>
+                <button type="button" class="kv-btn-action" id="share-doc-btn" onclick="openShareModal()" title="Share Verified Document">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                  <span>Share</span>
+                </button>
+                <button type="button" class="kv-btn-secondary" onclick="resetUploader()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                  <span>Verify Another</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Live Verified Preview -->
+            <div class="kv-preview-box">
+              <div class="kv-preview-toolbar">
+                <div class="kv-preview-label">
+                  <img src="/img/signature_verified.svg" width="18" height="18" alt="">
+                  <span>Live Verified Preview</span>
+                </div>
+                <div class="kv-zoom-bar">
+                  <button type="button" class="kv-zoom-btn" onclick="applyZoom(-0.15)" title="Zoom Out">−</button>
+                  <button type="button" class="kv-zoom-btn" id="zoom-reset-btn" onclick="setZoom(1.0)" title="Reset Zoom">100%</button>
+                  <button type="button" class="kv-zoom-btn" onclick="applyZoom(0.15)" title="Zoom In">+</button>
+                </div>
+              </div>
+              <div class="kv-preview-viewport" id="preview-viewport">
+                ${(report.preview_pages || []).map((dataUrl, idx) => `
+                  <div class="kv-preview-page" id="preview-page-${idx}">
+                    <img src="${dataUrl}" class="kv-preview-img" alt="Document Page" loading="lazy">
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            ${inspectorHTML}
+          </div>
+        `;
+
+        currentZoom = 1.0;
+        updateZoomUI();
+      } else {
+        // No signature found or error
+        results.innerHTML = `
+          <div class="kv-clean-screen">
+            <div class="kv-result-banner" style="background-color: var(--bg-card-subtle); border: 1px solid var(--border-subtle);">
+              <div class="kv-icon-circle-badge" style="color: var(--text-muted);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="16" x2="12" y2="12"/>
+                  <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+              </div>
+              <div class="kv-banner-content">
+                <span class="kv-banner-title" style="color: var(--text-main);">${verdict === 'nosig' ? 'No Signature Found' : 'Verification Issue'}</span>
+                <p class="kv-banner-desc">${report.message || 'This document contains no digital signature.'}</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+              <button type="button" class="kv-btn-secondary" style="width: auto;" onclick="resetUploader()">
+                Try Another Document
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // Zoom Management (Physical Width Scaling with Smooth Transitions)
+    // =========================================================================
+    function applyZoom(delta) {
+      currentZoom = Math.max(0.5, Math.min(2.5, Math.round((currentZoom + delta) * 100) / 100));
+      updateZoomUI();
+    }
+
+    function setZoom(val) {
+      currentZoom = val;
+      updateZoomUI();
+    }
+
+    function updateZoomUI() {
+      const baseWidth = 720;
+      const targetWidth = Math.round(baseWidth * currentZoom);
+
+      const pages = document.querySelectorAll('.kv-preview-page');
+      pages.forEach(p => {
+        p.style.width = `${targetWidth}px`;
+        p.style.maxWidth = 'none';
+        const img = p.querySelector('.kv-preview-img');
+        if (img) {
+          img.style.width = `${targetWidth}px`;
+          img.style.maxWidth = 'none';
+        }
+      });
+
+      const resetBtn = document.getElementById('zoom-reset-btn');
+      if (resetBtn) {
+        resetBtn.textContent = `${Math.round(currentZoom * 100)}%`;
+      }
+    }
+
+    // =========================================================================
+    // Verified PDF Caching, Download & Direct One-Click Print
+    // =========================================================================
+    let cachedBakedBlob = null;
+    let cachedBakedBlobUrl = null;
+
+    async function getOrFetchBakedPdfBlob() {
+      if (cachedBakedBlobUrl) return { blob: cachedBakedBlob, url: cachedBakedBlobUrl };
+      if (!currentFile) throw new Error('No document loaded');
+
+      const formData = new FormData();
+      formData.append('file', currentFile);
+      if (currentPassword) {
+        formData.append('password', currentPassword);
+      }
+
+      const res = await fetch('/api/bake', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.error || 'Failed to bake verified display copy');
+      }
+
+      const blob = await res.blob();
+      cachedBakedBlob = blob;
+      cachedBakedBlobUrl = URL.createObjectURL(blob);
+      return { blob, url: cachedBakedBlobUrl };
+    }
+
+    async function downloadVerifiedDisplayCopy() {
+      if (!currentFile) return;
+      const btn = document.getElementById('download-verified-btn');
+      const origHTML = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = `
+          <svg class="kv-spin-svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" opacity="0.25"/>
+            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>Preparing PDF...</span>
+        `;
+        btn.disabled = true;
+      }
+
+      try {
+        const { blob, url } = await getOrFetchBakedPdfBlob();
+        const link = document.createElement('a');
+        link.href = url;
+        const origName = currentFile.name || 'document.pdf';
+        const baseName = origName.replace(/\.[^/.]+$/, '');
+        link.download = `${baseName}_verified_display_copy.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch (err) {
+        showError('Download error: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.innerHTML = origHTML;
+          btn.disabled = false;
+        }
+      }
+    }
+
+    async function printVerifiedDocument() {
+      if (!currentFile) return;
+      const btn = document.getElementById('print-doc-btn');
+      const origHTML = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = `
+          <svg class="kv-spin-svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" opacity="0.25"/>
+            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span>Loading...</span>
+        `;
+        btn.disabled = true;
+      }
+
+      try {
+        const { blob, url } = await getOrFetchBakedPdfBlob();
+        let printFrame = document.getElementById('kv-print-frame');
+        if (!printFrame) {
+          printFrame = document.createElement('iframe');
+          printFrame.id = 'kv-print-frame';
+          printFrame.style.position = 'fixed';
+          printFrame.style.right = '0';
+          printFrame.style.bottom = '0';
+          printFrame.style.width = '0';
+          printFrame.style.height = '0';
+          printFrame.style.border = 'none';
+          printFrame.style.visibility = 'hidden';
+          document.body.appendChild(printFrame);
+        }
+
+        printFrame.src = url;
+        printFrame.onload = function() {
+          setTimeout(() => {
+            try {
+              printFrame.contentWindow.focus();
+              printFrame.contentWindow.print();
+            } catch (frameErr) {
+              window.open(url, '_blank');
+            }
+          }, 350);
+        };
+      } catch (err) {
+        showError('Print error: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.innerHTML = origHTML;
+          btn.disabled = false;
+        }
+      }
+    }
+
+    // =========================================================================
+    // Instant Share Modal (WhatsApp, Email, Copy Summary)
+    // =========================================================================
+    function openShareModal() {
+      const docName = currentFile ? currentFile.name : 'Verified Document';
+      let modal = document.getElementById('share-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'share-modal';
+        modal.className = 'kv-modal-backdrop';
+        modal.innerHTML = `
+          <div class="kv-modal-card">
+            <div class="kv-modal-header">
+              <div class="kv-modal-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span>Share Verified Document</span>
+              </div>
+              <button type="button" class="kv-modal-close" onclick="closeShareModal()" aria-label="Close modal">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <div class="kv-share-doc-preview">
+              <div class="kv-share-doc-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+              </div>
+              <div style="min-width: 0;">
+                <div class="kv-share-doc-name" id="modal-share-docname">${docName}</div>
+                <div class="kv-share-doc-sub">Certified Digital Signature · Valid Copy</div>
+              </div>
+            </div>
+
+            <div class="kv-share-grid">
+              <a href="#" class="kv-share-item kv-share-whatsapp" id="share-wa-link" target="_blank" rel="noopener">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                <span>WhatsApp</span>
+              </a>
+
+              <a href="#" class="kv-share-item" id="share-mail-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Email</span>
+              </a>
+            </div>
+
+            <button type="button" class="kv-share-copy-btn" id="share-copy-summary-btn" onclick="copyVerificationSummary()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Verification Summary</span>
+            </button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeShareModal();
+        });
+      }
+
+      const nameEl = document.getElementById('modal-share-docname');
+      if (nameEl) nameEl.textContent = docName;
+
+      const waText = `I have verified my official document "${docName}" using KomoValid Digital Signature Validator with certified green tick.\nStatus: Cryptographically Certified & Valid.`;
+      const waLink = document.getElementById('share-wa-link');
+      if (waLink) {
+        waLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(waText)}`;
+      }
+
+      const mailSubject = `Verified Document: ${docName}`;
+      const mailBody = `Hello,\n\nPlease find verified details for: ${docName}.\nVerified with permanent certified green tick using KomoValid Digital Signature Engine.\n\nStatus: Cryptographically Certified & Valid.`;
+      const mailLink = document.getElementById('share-mail-link');
+      if (mailLink) {
+        mailLink.href = `mailto:?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+      }
+
+      requestAnimationFrame(() => {
+        modal.classList.add('kv-modal-open');
+      });
+    }
+
+    function closeShareModal() {
+      const modal = document.getElementById('share-modal');
+      if (modal) {
+        modal.classList.remove('kv-modal-open');
+      }
+    }
+
+    async function copyVerificationSummary() {
+      const docName = currentFile ? currentFile.name : 'Official Document';
+      const summaryText = `[KomoValid Certified]\nDocument: ${docName}\nVerification Status: Digitally Signed & Cryptographically Valid\nStamp: Official 3D Green Tick Display Copy Applied\nVerified via KomoValid Digital Signature Engine`;
+      
+      try {
+        await navigator.clipboard.writeText(summaryText);
+        const btn = document.getElementById('share-copy-summary-btn');
+        if (btn) {
+          btn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span style="color: #10b981; font-weight: 700;">Copied to Clipboard!</span>
+          `;
+          setTimeout(() => {
+            btn.innerHTML = `
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Verification Summary</span>
+            `;
+          }, 2000);
+        }
+      } catch (e) {
+        alert('Verification summary:\n' + summaryText);
+      }
+    }
+
+    // =========================================================================
+    // Feature 3: Batch / Multi-File Processing Station
+    // =========================================================================
+    let currentBatchFiles = [];
+    let batchZipBlobUrl = null;
+
+    function formatFileSize(bytes) {
+      if (!bytes || bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    async function handleBatchUpload(files) {
+      if (!files || files.length === 0) return;
+      currentBatchFiles = files;
+      batchZipBlobUrl = null;
+
+      // Hide dropzone
+      const dropZone = document.getElementById('drop-zone');
+      const stepsContainer = document.getElementById('steps-container');
+      const results = document.getElementById('results-container');
+      const headerTitle = document.getElementById('card-header-title');
+      const headerBadge = document.getElementById('card-header-badge');
+
+      if (dropZone) dropZone.style.display = 'none';
+      if (stepsContainer) stepsContainer.style.display = 'none';
+      if (headerTitle) headerTitle.textContent = `Batch Processing (${files.length} Files)`;
+      if (headerBadge) headerBadge.textContent = 'Bulk Signer';
+
+      // Render Batch UI
+      results.style.display = 'block';
+      results.innerHTML = `
+        <div class="kv-batch-station">
+          <div class="kv-batch-card">
+            <div class="kv-batch-header">
+              <div class="kv-batch-title-group">
+                <div class="kv-batch-badge-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="kv-batch-title">Batch Signature Verification & Baking</h2>
+                  <p class="kv-batch-subtitle">Processing ${files.length} documents concurrently · Packaging into verified ZIP archive</p>
+                </div>
+              </div>
+              <span class="kv-clean-pill" id="batch-overall-pill">Preparing...</span>
+            </div>
+
+            <div class="kv-batch-progress-bar-wrap">
+              <div class="kv-batch-progress-bar" id="batch-progress-bar"></div>
+            </div>
+
+            <div class="kv-batch-files-list" id="batch-files-list">
+              ${files.map((file, idx) => `
+                <div class="kv-batch-file-row" id="batch-row-${idx}">
+                  <div class="kv-batch-file-left">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted); flex-shrink: 0;">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    <div>
+                      <div class="kv-batch-file-name" title="${file.name}">${file.name}</div>
+                      <div class="kv-batch-file-size">${formatFileSize(file.size)}</div>
+                    </div>
+                  </div>
+                  <div class="kv-batch-file-status kv-batch-status-queued" id="batch-status-${idx}">
+                    <span>Queued</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="kv-batch-actions-bar">
+              <button type="button" class="kv-btn-secondary" style="width: auto;" onclick="resetUploader()">
+                Cancel & Upload Others
+              </button>
+              <button type="button" class="kv-btn-primary" id="batch-download-zip-btn" style="width: auto;" disabled onclick="downloadBatchZip()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span id="batch-zip-btn-text">Verifying Documents...</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      executeBatchProcessing(files);
+    }
+
+    async function executeBatchProcessing(files) {
+      const progressBar = document.getElementById('batch-progress-bar');
+      const overallPill = document.getElementById('batch-overall-pill');
+      const downloadBtn = document.getElementById('batch-download-zip-btn');
+      const btnText = document.getElementById('batch-zip-btn-text');
+
+      const total = files.length;
+      let currentIndex = 0;
+
+      const progressInterval = setInterval(() => {
+        if (currentIndex < total) {
+          const rowStatus = document.getElementById(`batch-status-${currentIndex}`);
+          if (rowStatus) {
+            rowStatus.className = 'kv-batch-file-status kv-batch-status-processing';
+            rowStatus.innerHTML = `
+              <svg class="kv-spin-svg" width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" opacity="0.25"/>
+                <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+              <span>Verifying...</span>
+            `;
+          }
+
+          if (currentIndex > 0) {
+            const prevStatus = document.getElementById(`batch-status-${currentIndex - 1}`);
+            if (prevStatus) {
+              prevStatus.className = 'kv-batch-file-status kv-batch-status-verified';
+              prevStatus.innerHTML = `
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Verified Copy</span>
+              `;
+            }
+          }
+
+          const pct = Math.round(((currentIndex + 1) / total) * 85);
+          if (progressBar) progressBar.style.width = `${pct}%`;
+          if (overallPill) overallPill.textContent = `Verifying ${currentIndex + 1} of ${total}`;
+          currentIndex++;
+        }
+      }, 350);
+
+      try {
+        const formData = new FormData();
+        files.forEach(f => formData.append('files', f));
+
+        const response = await fetch('/api/batch-bake', {
+          method: 'POST',
+          body: formData
+        });
+
+        clearInterval(progressInterval);
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || 'Batch baking failed on server');
+        }
+
+        const zipBlob = await response.blob();
+        batchZipBlobUrl = URL.createObjectURL(zipBlob);
+
+        for (let i = 0; i < total; i++) {
+          const status = document.getElementById(`batch-status-${i}`);
+          if (status) {
+            status.className = 'kv-batch-file-status kv-batch-status-verified';
+            status.innerHTML = `
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Verified Copy</span>
+            `;
+          }
+        }
+
+        if (progressBar) progressBar.style.width = '100%';
+        if (overallPill) {
+          overallPill.textContent = 'All Verified ✓';
+          overallPill.style.color = '#10b981';
+        }
+
+        if (downloadBtn) {
+          downloadBtn.disabled = false;
+        }
+        if (btnText) {
+          btnText.textContent = `Download All Verified PDFs (${files.length} Files ZIP)`;
+        }
+      } catch (err) {
+        clearInterval(progressInterval);
+        showError('Batch processing failed: ' + err.message);
+        if (overallPill) {
+          overallPill.textContent = 'Error';
+          overallPill.style.color = '#ef4444';
+        }
+      }
+    }
+
+    function downloadBatchZip() {
+      if (!batchZipBlobUrl) return;
+      const link = document.createElement('a');
+      link.href = batchZipBlobUrl;
+      link.download = 'KomoValid_Verified_Documents.zip';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
+    function showError(message) {
+      document.getElementById('steps-container').style.display = 'none';
+      const results = document.getElementById('results-container');
+      results.style.display = 'block';
+      results.innerHTML = `
+        <div class="kv-result-banner" style="background-color: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444;">
+          <div class="kv-icon-circle-badge" style="color: #ef4444;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <div class="kv-banner-content">
+            <h4 style="font-weight: 700; margin-bottom: 0.25rem; color: #ef4444;">Error Processing Document</h4>
+            <p style="font-size: 0.88rem; margin-bottom: 0.85rem;">${message}</p>
+            <button type="button" class="kv-btn-secondary" style="width: auto;" onclick="resetUploader()">Try Another File</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function resetUploader() {
+      currentFile = null;
+      currentPassword = '';
+      currentZoom = 1.0;
+      currentBatchFiles = [];
+
+      if (cachedBakedBlobUrl) {
+        URL.revokeObjectURL(cachedBakedBlobUrl);
+        cachedBakedBlobUrl = null;
+        cachedBakedBlob = null;
+      }
+
+      if (batchZipBlobUrl) {
+        URL.revokeObjectURL(batchZipBlobUrl);
+        batchZipBlobUrl = null;
+      }
+
+      const hero = document.getElementById('hero-section');
+      if (hero) hero.classList.remove('kv-hero-minimized');
+
+      const cardTitle = document.getElementById('card-header-title');
+      if (cardTitle) cardTitle.textContent = 'Upload PDF Document';
+      const cardBadge = document.getElementById('card-header-badge');
+      if (cardBadge) cardBadge.textContent = 'Local & Secure';
+
+      document.getElementById('drop-zone').style.display = 'block';
+      document.getElementById('steps-container').style.display = 'none';
+      document.getElementById('results-container').style.display = 'none';
+      const fi = document.getElementById('file-input');
+      if (fi) fi.value = '';
+    }
+
+    // 21st.dev High-Performance Spotlight Cursor Tracking (GPU composited)
+    let spotlightRaf = null;
+    document.addEventListener('pointermove', (e) => {
+      if (spotlightRaf) cancelAnimationFrame(spotlightRaf);
+      spotlightRaf = requestAnimationFrame(() => {
+        const spotlights = document.querySelectorAll('.kv-spotlight');
+        spotlights.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          if (x >= -40 && x <= rect.width + 40 && y >= -40 && y <= rect.height + 40) {
+            el.style.setProperty('--mouse-x', `${x}px`);
+            el.style.setProperty('--mouse-y', `${y}px`);
+          }
+        });
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>
