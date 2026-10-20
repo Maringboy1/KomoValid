@@ -26,19 +26,39 @@ def add_cors_headers(response):
     return response
 
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 @app.route("/")
 def index():
-    return send_file("index.html")
+    return send_file(os.path.join(BASE_DIR, "index.html"), mimetype="text/html")
+
+
+@app.route("/styles.css")
+def serve_styles():
+    return send_file(os.path.join(BASE_DIR, "styles.css"), mimetype="text/css")
+
+
+@app.route("/img/<path:filename>")
+def serve_img(filename):
+    file_path = os.path.join(BASE_DIR, "img", filename)
+    if os.path.exists(file_path):
+        mimetype = "image/svg+xml" if filename.endswith(".svg") else None
+        return send_file(file_path, mimetype=mimetype)
+    return jsonify({"error": "Image not found"}), 404
 
 
 @app.route("/<path:path>")
 def static_files(path):
-    if os.path.exists(path):
-        return send_file(path)
-    img_candidate = os.path.join("img", path)
-    if os.path.exists(img_candidate):
-        return send_file(img_candidate)
-    return send_file("index.html")
+    file_path = os.path.join(BASE_DIR, path)
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+        mimetype = None
+        if path.endswith(".css"):
+            mimetype = "text/css"
+        elif path.endswith(".svg"):
+            mimetype = "image/svg+xml"
+        return send_file(file_path, mimetype=mimetype)
+    return send_file(os.path.join(BASE_DIR, "index.html"), mimetype="text/html")
 
 
 @app.route("/api/validate", methods=["POST"])
